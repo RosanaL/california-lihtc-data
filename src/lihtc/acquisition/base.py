@@ -70,3 +70,21 @@ def save_raw(source_id: str, payload: dict | list, url: str, params: dict,
 def latest_raw(source_id: str, root: Path = RAW_ROOT) -> Path | None:
     files = sorted((root / source_id).glob("*.json"))
     return files[-1] if files else None
+
+
+# --- last-known-good pointer ---------------------------------------------------
+# A refresh writes new snapshots first and checks them second. Downstream code
+# reads the LAST_GOOD snapshot, so a snapshot that failed its checks is kept on
+# disk for inspection but never feeds the published dataset.
+
+def last_good(source_id: str, root: Path = RAW_ROOT) -> Path | None:
+    ptr = root / source_id / "LAST_GOOD"
+    if ptr.exists():
+        p = root / source_id / ptr.read_text().strip()
+        if p.exists():
+            return p
+    return latest_raw(source_id, root)  # bootstrap: before any refresh has run
+
+
+def mark_good(source_id: str, snapshot: str | Path, root: Path = RAW_ROOT) -> None:
+    (root / source_id / "LAST_GOOD").write_text(Path(snapshot).name + "\n")

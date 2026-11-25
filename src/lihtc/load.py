@@ -18,7 +18,7 @@ import yaml
 from psycopg.types.json import Jsonb
 from shapely.geometry import Point, Polygon
 
-from .acquisition.base import RAW_ROOT
+from .acquisition.base import RAW_ROOT, last_good
 from .normalization.address import normalize_address, normalize_name, store_number
 from .pipeline import area_evidence_for, evaluate, load_inputs
 from .validation.eligibility import _strength, load_rules
@@ -34,8 +34,13 @@ def store_id(osm_id: str) -> str:
 
 
 def latest_manifest(source_id: str) -> dict:
-    lines = (RAW_ROOT / source_id / "manifest.jsonl").read_text().splitlines()
-    return json.loads(lines[-1])
+    """Manifest entry of the LAST_GOOD snapshot (the one the pipeline read)."""
+    good = last_good(source_id).name
+    for line in reversed((RAW_ROOT / source_id / "manifest.jsonl").read_text().splitlines()):
+        entry = json.loads(line)
+        if Path(entry["path"]).name == good:
+            return entry
+    raise RuntimeError(f"no manifest entry for {source_id}/{good}")
 
 
 def load(dsn: str = DSN) -> dict:

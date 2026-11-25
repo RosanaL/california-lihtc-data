@@ -12,7 +12,7 @@ from collections import Counter
 from pathlib import Path
 
 from .acquisition import arcgis, osm
-from .acquisition.base import latest_raw
+from .acquisition.base import last_good
 from .spatial.footprints import match_store
 from .validation.eligibility import AreaEvidence, StoreFacts, classify, load_rules
 
@@ -34,8 +34,8 @@ def load_inputs(fetch: bool = False) -> tuple[list[dict], dict]:
         stores = osm.parse(osm.fetch().path)
         fp_path = arcgis.fetch_for_stores(stores).path
     else:
-        stores = osm.parse(latest_raw("osm_overpass"))
-        fp_path = latest_raw("oc_building_footprints_2021")
+        stores = osm.parse(last_good("osm_overpass"))
+        fp_path = last_good("oc_building_footprints_2021")
     return stores, json.loads(Path(fp_path).read_text())
 
 
@@ -58,11 +58,17 @@ def evaluate(stores: list[dict], footprints: dict, rules: dict | None = None):
         yield s, m, multipurpose, classify(facts, rules)
 
 
-def run(fetch: bool = False) -> Path:
-    stores, footprints = load_inputs(fetch)
+PUBLISHED = OUT / "oc_grocery_candidates.csv"
 
-    OUT.mkdir(parents=True, exist_ok=True)
-    out = OUT / "oc_grocery_candidates.csv"
+
+def run(fetch: bool = False, out: Path | None = None,
+        inputs: tuple[list[dict], dict] | None = None) -> Path:
+    """Write the candidate CSV. `inputs`/`out` let a refresh stage a candidate
+    run from specific snapshots without touching the published file."""
+    stores, footprints = inputs or load_inputs(fetch)
+
+    out = out or PUBLISHED
+    out.parent.mkdir(parents=True, exist_ok=True)
     stats = Counter()
     with out.open("w", newline="") as fh:
         w = csv.writer(fh)

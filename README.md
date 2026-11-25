@@ -83,6 +83,7 @@ src/lihtc/
   validation/    eligibility.py (store class + eligible/likely/ineligible/unverified)
   pipeline.py    raw -> data/processed/oc_grocery_candidates.csv
   load.py        raw + results -> PostGIS (sources, raw_records, stores, buildings, evidence, results)
+  refresh/       diff.py (snapshot comparison), run.py (fetch -> check -> gate -> publish)
 database/schema.sql   PostGIS schema incl. attribute_evidence provenance table
 tests/
 ```
@@ -105,6 +106,33 @@ brew install postgis postgresql@18      # set port = 5433 in /opt/homebrew/var/p
 /opt/homebrew/opt/postgresql@18/bin/psql -p 5433 -d lihtc -f database/schema.sql
 PYTHONPATH=src .venv/bin/python -m lihtc.load               # idempotent; DSN via $LIHTC_DSN
 ```
+
+## Refresh and change detection
+
+```bash
+PYTHONPATH=src .venv/bin/python -m lihtc.refresh.run --load
+```
+
+Each run fetches every source, compares the new snapshots with each source's
+`LAST_GOOD` snapshot, stages a candidate pipeline run, and only then decides:
+
+| Severity | Examples | Effect |
+| --- | --- | --- |
+| error | fetch failed; record count down 30%+; required field (`FID`, `Address`, `Shape__Area`) missing; object-id field changed; footprints found for under half the stores | **gated**: nothing published, exit 2 |
+| warn | store removed (possible closure: TCAC needs the amenity in place); store renamed or moved >50 m; shop type changed; footprint area changed >10%; classification changed; optional field removed | published, exit 1, listed for review |
+| info | store added; address edited; building id changed | published, recorded |
+
+Every run writes `data/runs/<run_id>/report.md` and `changes.json`. With
+`--load` it also records the run in `refresh_runs` and each change in
+`change_events`; the `open_change_events` view lists what needs a human.
+Downstream code reads `LAST_GOOD`, so a gated snapshot stays on disk for
+inspection but never feeds the published data.
+
+Tested live (published, 0 changes, 3m21s) and with a synthetic broken OSM
+snapshot (half the records removed, one store renamed): the run was gated, and
+the published CSV and pointers were untouched. See
+[docs/refresh_gate_example.md](docs/refresh_gate_example.md). Apply
+`database/migrations/002_refresh_runs.sql` before the first `--load`.
 
 ## Benchmark (25 stores, hand-verified)
 
