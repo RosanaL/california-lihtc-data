@@ -1,0 +1,84 @@
+# Source registry. "status" records what was actually tested on 2026-11-25,
+# not what a source is assumed to offer.
+sources:
+  tcac_regulations:
+    owner: California Tax Credit Allocation Committee
+    url: https://www.treasurer.ca.gov/ctcac/programreg/2025/regulations.pdf
+    access: PDF download
+    provides: [grocery amenity rules, measurement rules]
+    version: "2025-12-10"
+    status: verified          # rules transcribed into eligibility_rules.yaml
+    notes: >
+      §10325(c)(4)(A)(4), p.39. Measurement rule (p.38): in a shopping complex,
+      measure to the store's exterior wall and subtract 250 ft, so the store's
+      outline geometry matters, not just a point.
+
+  osm_overpass:
+    owner: OpenStreetMap contributors
+    url: https://overpass-api.de/api/interpreter
+    access: Overpass API (POST), mirrors as fallback
+    license: ODbL 1.0 (attribution + share-alike on derived databases)
+    provides: [name, brand, shop type, address, point or store outline]
+    update_frequency: continuous
+    reliability: medium
+    status: working
+    result_2026_11_25: >
+      387 candidates in Orange County (319 supermarket, 44 department_store,
+      22 wholesale, 2 grocery). 245 mapped as building outlines; 333 have a house number.
+    known_limits:
+      - main instance often returns 502 at capacity; needs a User-Agent
+      - no floor area, no product categories, no closure dates
+      - completeness depends on volunteers
+
+  oc_building_footprints_2021:
+    owner: County of Orange (hosted on ArcGIS Online)
+    url: https://services.arcgis.com/UXmFoWC7yDHcDN5Q/arcgis/rest/services/Orange_County_Building_Footprints_2021/FeatureServer/0
+    access: ArcGIS REST query (envelope per store, maxRecordCount 2000)
+    provides: [footprint polygon, site address, mean height]
+    native_crs: EPSG:2230 (ftUS)
+    record_count: 781222
+    capture_dates: imagery ~Jan 2015 ("capture_da" field); service labelled 2021
+    reliability: medium-high for geometry, low as an area-of-one-store measure
+    status: working
+    known_limits:
+      - one polygon per roof, so multi-tenant centres yield the whole centre's area
+      - one site address per building, not per tenant
+      - footprint is exterior; TCAC wants gross interior sqft
+  oc_building_footprints_2026:
+    url: https://services8.arcgis.com/QlNjtMU89yOFWrJ8/arcgis/rest/services/OC_building_footprints_2026/FeatureServer/0
+    record_count: 36788
+    status: not_used          # partial coverage, no address field
+  ocgis_building_footprints_2011:
+    url: https://www.ocgis.com/arcpub/rest/services/Map_Layers/Building_Footprints/FeatureServer/0
+    record_count: 754811
+    status: fallback          # older, but has Address and Height
+
+  oc_food_inspections:
+    owner: OC Health Care Agency, Environmental Health (portal by MyHealthDepartment)
+    url: https://inspections.myhealthdepartment.com/orange-county
+    access: >
+      JSON endpoint POST / with {"task":"searchInspections","data":{path,searchStr,start,count,...}},
+      found by watching the portal's network traffic.
+    provides: [facility name with store number, address, permit number,
+               permit type, sub-permit name, inspection date and result]
+    reliability: high (regulator of record)
+    status: blocked_for_scripts
+    result_2026_11_25: >
+      Works from a browser session. A direct scripted request got HTTP 403 from
+      the load balancer (bot protection). Not circumvented.
+    why_it_matters: >
+      Supermarkets carry separate permits per department, e.g. RALPHS GROCERY #78
+      has "MARKET W/ 1 PREP" plus "MARKET - ADDITIONAL PREP AREA" sub-permits named
+      Meat, Seafood, Deli, Bakery. A Meat sub-permit is regulator-issued evidence of
+      a fresh-meat department: the only non-self-reported food-category signal found.
+    next_steps:
+      - CPRA public records request to OC HCA for active retail food permits
+        (facility, address, permit type, sub-permit names), the clean bulk path
+      - for the 20-30 store benchmark, look up stores manually in the portal
+
+  retailer_websites:
+    status: not_started
+  commercial_listings:
+    status: not_started       # tenant SF in leasing brochures = strong area evidence
+  city_planning_documents:
+    status: not_started

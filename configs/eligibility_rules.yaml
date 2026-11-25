@@ -1,0 +1,61 @@
+# Grocery site-amenity rules, transcribed from the CTCAC Regulations
+# (4 CCR §10325(c)(4)(A), item 4), version dated December 10, 2025:
+# https://www.treasurer.ca.gov/ctcac/programreg/2025/regulations.pdf (p.39)
+#
+# These rules cover the STORE's qualification and the distance tiers. Whether a
+# specific project earns the points also depends on the project site,
+# physical barriers, and the 15-point category cap, which are out of scope here.
+regulation:
+  citation: "4 CCR §10325(c)(4)(A)(4)"
+  version_date: "2025-12-10"
+  source_url: "https://www.treasurer.ca.gov/ctcac/programreg/2025/regulations.pdf"
+  page: 39
+
+required_food_categories: [staples, fresh_meat, fresh_produce]
+
+# "grocery section" of a large multipurpose store, as defined in the regulation
+grocery_section_definition:
+  - fresh_meat
+  - produce
+  - dairy
+  - baked_goods
+  - packaged_food_products
+  - delicatessen
+  - canned_goods
+  - baby_foods
+  - frozen_foods
+  - sundries
+  - beverages
+
+store_classes:
+  full_scale_supermarket:
+    min_gross_interior_sqft: 25000
+    tiers:            # miles -> points
+      standard: [{max_miles: 0.5, points: 5}, {max_miles: 1.0, points: 4}, {max_miles: 1.5, points: 3}]
+      rural:    [{max_miles: 1.0, points: 5}, {max_miles: 2.0, points: 4}, {max_miles: 3.0, points: 3}]
+  neighborhood_market:
+    min_gross_interior_sqft: 5000
+    tiers:
+      standard: [{max_miles: 0.25, points: 4}, {max_miles: 0.5, points: 3}]
+      rural:    [{max_miles: 0.5, points: 4}, {max_miles: 1.0, points: 3}]
+
+# A multipurpose store qualifies only if the application documents the
+# interior measurements of its grocery section; total store area is not enough.
+multipurpose_store:
+  area_basis: grocery_section_interior_sqft
+
+measurement:
+  # Radius from nearest site corner to the amenity. In a shopping complex or
+  # commercial strip, measure to the amenity's exterior wall and subtract 250 ft.
+  shopping_complex_wall_target: true
+  shopping_complex_reduction_ft: 250
+  barriers_disqualify: [highway, railroad, regional_park, golf_course]
+  category_point_cap: 15
+  amenity_must_be_in_place_at_application: true
+
+# Which evidence can establish gross interior area. Footprint-derived numbers
+# are proxies only and can never by themselves make a store "eligible".
+area_evidence_strength:
+  authoritative: [permit_record, certificate_of_occupancy, architect_measurement, tcac_application_exhibit]
+  strong: [leasing_brochure_tenant_sf, assessor_building_area, planning_document]
+  proxy: [building_footprint_single_tenant, building_footprint_multi_tenant]
