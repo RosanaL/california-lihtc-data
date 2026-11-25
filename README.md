@@ -74,6 +74,7 @@ permits, plus manual lookups for the benchmark set.
 ## Layout
 
 ```
+evaluation/   benchmark.csv (25 hand-verified stores), evaluate.py, results.md
 configs/      eligibility_rules.yaml, sources.yaml (tested status of each source)
 src/lihtc/
   acquisition/   base.py (raw snapshots + manifest), osm.py, arcgis.py
@@ -105,10 +106,20 @@ brew install postgis postgresql@18      # set port = 5433 in /opt/homebrew/var/p
 PYTHONPATH=src .venv/bin/python -m lihtc.load               # idempotent; DSN via $LIHTC_DSN
 ```
 
+## Benchmark (25 stores, hand-verified)
+
+Health permits matched 24 of 25; documented floor area was found for only 5.
+On those 5, the area proxy erred from -1% to +141% and misclassified one
+Trader Joe's (12,160 sqft) as full-scale. Run:
+
+```bash
+PYTHONPATH=src .venv/bin/python evaluation/evaluate.py
+```
+
 ## Next
 
-1. Benchmark: hand-verify 20–30 OC stores (area from leasing brochures or
-   permits, food departments from the inspection portal).
+1. Grow the area benchmark: 5 of 25 stores have documented area so far
+   (see `evaluation/results.md`). Work from owner rosters to stores.
 2. Entity resolution: OSM ↔ health permits (store number, address, RapidFuzz name).
 3. Measure area-proxy error against the benchmark and finish the failure analysis.
 

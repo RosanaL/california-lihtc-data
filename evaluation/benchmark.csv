@@ -1,0 +1,26 @@
+stratum,osm_id,name,address,city,permit_facility,permit_matched,fresh_meat_permit,produce_named,prepackaged_only,truth_area_sqft,truth_area_basis,truth_area_confidence,truth_area_source,notes
+A_clean_single,node/9161255622,ABC Market,West Ball Road,,ABC SUPERMARKET (1216 S Magnolia Ave),1,1,1,0,,,,,OSM tagged cross street; matched via footprint site address 1212 S Magnolia
+A_clean_single,way/230799916,El Super,1221 South Anaheim Boulevard,Anaheim,EL SUPER^,1,1,0,0,,,,,
+A_clean_single,way/228737770,Albertsons,13270 Newport Avenue,Tustin,Albertsons #6574,1,1,0,0,,,,,
+A_clean_single,way/968620145,Grocery Outlet,2001 West Whittier Boulevard,La Habra,La Habra Grocery Outlet #299,1,0,0,0,14844,leased,high,"Gordon Brothers Grocery Outlet lease-disposition brochure, Jul 2026",store marketed for disposition
+A_clean_single,way/138516368,Nina's Indian & British Groceries,23542 El Toro Road,Lake Forest,NINAS INDIAN BRITISH GROCERY,1,0,0,0,,,,,
+A_clean_single,way/1080374015,Stater Bros.,15150 Kensington Park Drive,Tustin,Stater Bros Market #198,1,1,1,0,43830,leased,high,"Regency Centers property page, Village at Tustin Legacy, space B",
+B_shared_center,way/176274326,Albertsons,8440 East Chapman Avenue,Orange,Albertsons #2551,1,1,0,0,,,,,
+B_shared_center,way/188704220,Smart & Final Extra!,630 North Euclid Street,Anaheim,SMART & FINAL #313,1,0,0,0,30000,leased,low,Kimco site as cited by The Real Deal (2022); page itself blocked,Anaheim Plaza address range not confirmed to include 630 N Euclid
+B_shared_center,way/228731119,Stater Bros.,1800 East Collins Avenue,Orange,Stater Bros Market #28,1,1,1,0,,,,,
+B_shared_center,node/797948340,Stater Bros.,24336 El Toro Road,Laguna Woods,STATER BROS MARKET #124,1,1,1,0,,,,,
+B_shared_center,node/2644804298,Sprouts Farmers Market,27765 Santa Margarita Parkway,Mission Viejo,SPROUTS FARMERS MARKET #242,1,1,0,0,,,,,
+B_shared_center,way/170973960,Trader Joe's,2114 North Tustin Street,Orange,TRADER JOES #46,1,0,0,0,,,,,
+C_osm_outline_or_mall,way/228737740,Smart & Final,1114 Irvine Boulevard,Tustin,SMART & FINAL #726,1,0,0,0,,,,,Deli/Rotisserie sub-permit only
+C_osm_outline_or_mall,way/1247776885,Trader Joe's,27542 Antonio Parkway,Ladera Ranch,Traders Joes #257,1,0,0,0,15000,leased,medium,"Regency Centers property page, Mercantile East, space C",center listed at 27702 Antonio Pkwy; store at 27542
+C_osm_outline_or_mall,way/228745490,Trader Joe's,3329 South Bristol Street,Santa Ana,TRADER JOES #113,1,0,0,0,12160,leased,high,"Brixmor leasing page, Bristol Plaza (3301-3361 S Bristol), space 08",
+C_osm_outline_or_mall,way/220967915,Ralphs,19081 Goldenwest Street,Huntington Beach,RALPHS GROCERY #650,1,1,0,0,51581,leased,high,"JLL Peninsula Marketplace sale flyer 2026, suite 19081",
+C_osm_outline_or_mall,way/721299733,Albertsons,Brookhurst Street,Fountain Valley,,0,,,,,,,,no permit found: possibly closed or filed under another address
+D_multipurpose,way/228755191,Target,16400 Beach Boulevard,Westminster,TARGET STORES T249,1,0,0,0,,,,,multipurpose; MARKET permit named GROCERY
+D_multipurpose,way/171964025,Target,2920 Yorba Linda Boulevard,Fullerton,TARGET STORES T293,1,0,0,0,,,,,multipurpose; MARKET permit named GROCERY
+D_multipurpose,way/170973940,Walmart,2300 North Tustin Street,Orange,WAL-MART #2546,1,0,0,1,,,,,permit named PREPACKAGED FOOD ONLY
+D_multipurpose,way/195234836,Costco,22633 Savi Ranch Parkway,Yorba Linda,COSTCO #445,1,1,0,0,,,,,
+E_small_format,way/406668188,Crown Valley International Market,27771 Center Drive,Mission Viejo,CROWN VALLEY MARKETPLACE,1,0,0,0,,,,,name differs from OSM
+E_small_format,node/7929440685,Thanh Long Maria Market,12451 Westminster Boulevard,,Thanh Long Maria Market,1,0,0,0,,,,,OSM street type wrong (Blvd vs Ave)
+E_small_format,node/2962302140,Trader Joe's,638 Camino de Los Mares,San Clemente,TRADER JOES #16,1,0,0,0,,,,,same site address as Ralphs #015 and a CVS
+E_small_format,way/1073098108,Irvine Ranch Market,200 Marine Avenue,Newport Beach,IRVINE RANCH MARKET,1,1,0,0,,,,,

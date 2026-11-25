@@ -1,0 +1,26 @@
+stratum,osm_id,name,brand,address,city,footprint_sqft,footprint_method,footprint_flags
+A_clean_single,node/9161255622,ABC Market,,West Ball Road,,72871,point_in_polygon,
+A_clean_single,way/230799916,El Super,El Super,1221 South Anaheim Boulevard,Anaheim,27235,point_in_polygon,
+A_clean_single,way/228737770,Albertsons,Albertsons,13270 Newport Avenue,Tustin,56519,point_in_polygon,
+A_clean_single,way/968620145,Grocery Outlet,Grocery Outlet,2001 West Whittier Boulevard,La Habra,15824,point_in_polygon,
+A_clean_single,way/138516368,Nina's Indian & British Groceries,,23542 El Toro Road,Lake Forest,7642,point_in_polygon,
+A_clean_single,way/1080374015,Stater Bros.,Stater Bros.,15150 Kensington Park Drive,Tustin,63014,point_in_polygon,
+B_shared_center,way/176274326,Albertsons,Albertsons,8440 East Chapman Avenue,Orange,51664,osm_outline,shared_site_address;footprint_exceeds_osm_store_outline
+B_shared_center,way/188704220,Smart & Final Extra!,Smart & Final,630 North Euclid Street,Anaheim,28789,osm_outline,shared_site_address;footprint_exceeds_osm_store_outline
+B_shared_center,way/228731119,Stater Bros.,Stater Bros.,1800 East Collins Avenue,Orange,40173,point_in_polygon,shared_site_address
+B_shared_center,node/797948340,Stater Bros.,Stater Bros.,24336 El Toro Road,Laguna Woods,54406,point_in_polygon,shared_site_address
+B_shared_center,node/2644804298,Sprouts Farmers Market,Sprouts Farmers Market,27765 Santa Margarita Parkway,Mission Viejo,93818,point_in_polygon,shared_site_address
+B_shared_center,way/170973960,Trader Joe's,Trader Joe's,2114 North Tustin Street,Orange,22006,point_in_polygon,shared_site_address
+C_osm_outline_or_mall,way/228737740,Smart & Final,Smart & Final,1114 Irvine Boulevard,Tustin,39844,osm_outline,footprint_exceeds_osm_store_outline
+C_osm_outline_or_mall,way/1247776885,Trader Joe's,Trader Joe's,27542 Antonio Parkway,Ladera Ranch,15096,osm_outline,shared_site_address;footprint_exceeds_osm_store_outline
+C_osm_outline_or_mall,way/228745490,Trader Joe's,Trader Joe's,3329 South Bristol Street,Santa Ana,29358,osm_outline,shared_site_address;footprint_exceeds_osm_store_outline
+C_osm_outline_or_mall,way/220967915,Ralphs,Ralphs,19081 Goldenwest Street,Huntington Beach,51179,osm_outline,address_mismatch;footprint_exceeds_osm_store_outline
+C_osm_outline_or_mall,way/721299733,Albertsons,Albertsons,Brookhurst Street,Fountain Valley,48131,osm_outline,footprint_exceeds_osm_store_outline
+D_multipurpose,way/228755191,Target,Target,16400 Beach Boulevard,Westminster,204805,point_in_polygon,very_large_footprint_possible_mall
+D_multipurpose,way/171964025,Target,Target,2920 Yorba Linda Boulevard,Fullerton,112990,point_in_polygon,
+D_multipurpose,way/170973940,Walmart,Walmart,2300 North Tustin Street,Orange,137337,point_in_polygon,
+D_multipurpose,way/195234836,Costco,Costco,22633 Savi Ranch Parkway,Yorba Linda,143063,point_in_polygon,
+E_small_format,way/406668188,Crown Valley International Market,,27771 Center Drive,Mission Viejo,16946,point_in_polygon,
+E_small_format,node/7929440685,Thanh Long Maria Market,,12451 Westminster Boulevard,,6307,nearest_within_25m,store_point_outside_building;address_mismatch
+E_small_format,node/2962302140,Trader Joe's,Trader Joe's,638 Camino de Los Mares,San Clemente,14507,point_in_polygon,shared_site_address
+E_small_format,way/1073098108,Irvine Ranch Market,,200 Marine Avenue,Newport Beach,4256,osm_outline,shared_site_address;footprint_exceeds_osm_store_outline
